@@ -37,7 +37,14 @@ app.get("/siteContent", (req, res) => {
 
 app.post("/siteContent", jsonParser, (req, res) => {
   console.log(req.body);
-  res.send({"hello": "world"})
+  let props = Object.getOwnPropertyNames(req.body);
+  props.forEach((docName) => {
+    console.log(docName);
+    db.collection("contentData").doc(docName).set(req.body[docName], { merge: true }).catch(error => {
+      res.send({ error: "Error writing to database, please try again" });
+    });
+  })
+  res.sendStatus(200);
 })
 
 app.post('/login', (req, res) => {
