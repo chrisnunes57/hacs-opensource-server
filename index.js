@@ -15,6 +15,14 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
+app.get("/memberOfWeek", (req, res) => {
+  res.send({
+    name: "test test test",
+    image: "https://cdn.mos.cms.futurecdn.net/7UKru4akuGz2QcUPp6smqX.jpg",
+    description: "asdf;hjsldf asldjfh ajsklfkasjhdf opuer hoqiuerwri ldasbhs kasaskldjasfasjhf kguqwohep jflasfkahsjldf kbaskjfh sfk",
+  });
+});
+
 app.post('/login', (req, res) => {
   let loginData = Buffer.from(
     req.headers.authorization.split(" ")[1],
