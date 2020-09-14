@@ -16,14 +16,18 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.get("/memberOfTheWeek", (req, res) => {
-  db.collection("homepage").doc("memberOfTheWeek").get().catch( error => {
+app.get("/siteContent", (req, res) => {
+  db.collection("contentData").get().catch( error => {
     res.send({
       "error": "Error reading from database. Please try again."
     })
   }).then( (snapshot) => {
     if (snapshot) {
-      res.send(snapshot.data());
+      let data = {}
+      snapshot.forEach((doc) => {
+        data[doc.id] = doc.data();
+      });
+      res.send(data);
     }
   })
 });
