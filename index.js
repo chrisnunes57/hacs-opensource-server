@@ -8,13 +8,12 @@ require("firebase/firestore");
 const config = require( "./firebase_config.js").config;
 
 firebase.initializeApp(config);
-app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', cors(), (req, res) => {
   let loginData = Buffer.from(
     req.headers.authorization.split(" ")[1],
     "base64"
