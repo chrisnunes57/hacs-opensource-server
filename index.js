@@ -8,6 +8,7 @@ require("firebase/firestore");
 const config = require( "./firebase_config.js").config;
 
 firebase.initializeApp(config);
+const db = firebase.firestore();
 
 app.use(cors({ credentials: true, origin: true }));
 
@@ -15,12 +16,16 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.get("/memberOfWeek", (req, res) => {
-  res.send({
-    name: "test test test",
-    image: "https://cdn.mos.cms.futurecdn.net/7UKru4akuGz2QcUPp6smqX.jpg",
-    description: "asdf;hjsldf asldjfh ajsklfkasjhdf opuer hoqiuerwri ldasbhs kasaskldjasfasjhf kguqwohep jflasfkahsjldf kbaskjfh sfk",
-  });
+app.get("/memberOfTheWeek", (req, res) => {
+  db.collection("homepage").doc("memberOfTheWeek").get().catch( error => {
+    res.send({
+      "error": "Error reading from database. Please try again."
+    })
+  }).then( (snapshot) => {
+    if (snapshot) {
+      res.send(snapshot.data());
+    }
+  })
 });
 
 app.post('/login', (req, res) => {
