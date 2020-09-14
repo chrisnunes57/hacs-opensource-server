@@ -1,1 +1,1 @@
-The backend that powers the #HACS# website!
+The backend that powers the HACS website!
