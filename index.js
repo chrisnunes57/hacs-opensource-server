@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+var bodyParser = require("body-parser");
 const cors = require("cors");
 const port = process.env.PORT || 5000
 const firebase = require("firebase/app");
@@ -9,6 +10,8 @@ const config = require( "./firebase_config.js").config;
 
 firebase.initializeApp(config);
 const db = firebase.firestore();
+
+const jsonParser = bodyParser.json();
 
 app.use(cors({ credentials: true, origin: true }));
 
@@ -31,6 +34,11 @@ app.get("/siteContent", (req, res) => {
     }
   })
 });
+
+app.post("/siteContent", jsonParser, (req, res) => {
+  console.log(req.body);
+  res.send({"hello": "world"})
+})
 
 app.post('/login', (req, res) => {
   let loginData = Buffer.from(
