@@ -91,6 +91,15 @@ app.get("/calendar", (req, res) => {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
       $("head").append(styles);
+
+      // we need to update relative urls to point to "https://calendar.google.com"
+      $("script").each((i, link) => {
+        if(link.attribs.src && !link.attribs.src.startsWith("http")) {
+          link.attribs.src = "https://calendar.google.com" + link.attribs.src;
+          console.log(link.attribs.src);
+        }
+      });
+
       res.send($.html());
     } else {
       res.send({"Error": "Could not get calendar content"})
