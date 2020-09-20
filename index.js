@@ -115,6 +115,9 @@ app.get("/calendar", (req, res) => {
         }
       });
 
+      // we want elements with onclick redirects to use gcal links
+      $("subscribe-id").attr("onclick", "window.location = '/calendar/render'");
+
       res.send($.html());
     } else {
       res.send({"Error": "Could not get calendar content"})
