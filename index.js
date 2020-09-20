@@ -105,18 +105,15 @@ app.get("/calendar", (req, res) => {
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
+      $("head").prepend("<base href=\"https://calendar.google.com\" >")
       $("head").append(styles);
 
       // we need to update relative urls to point to "https://calendar.google.com"
-      $("script").each((i, link) => {
-        if(link.attribs.src && !link.attribs.src.startsWith("http")) {
-          link.attribs.src = "https://calendar.google.com" + link.attribs.src;
-          console.log(link.attribs.src);
+      $("script").each((i, script) => {
+        if(script.attribs.src && !script.attribs.src.startsWith("http")) {
+          script.attribs.src = "https://calendar.google.com" + script.attribs.src;
         }
       });
-
-      // we want elements with onclick redirects to use gcal links
-      $("#subscribe-id").attr("onClick", "window.location = '/calendar/render'");
 
       res.send($.html());
     } else {
