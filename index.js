@@ -79,7 +79,7 @@ app.post('/login', (req, res) => {
 })
 
 app.get("/calendar", (req, res) => {
-  const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
+  const iframeUrl = "https://calendar.google.com/calendar/u/0/htmlembed?src=texashacs@gmail.com&ctz=America/Chicago";
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.send(body);
