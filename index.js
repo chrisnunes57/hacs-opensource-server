@@ -90,9 +90,13 @@ const styles = `<style type="text/css">
     background: none !important;
   }
 
-  .te-s, .te-t {
+  .te-s, .te-t, .title {
     color: #27246A !important;
     font-family: Roboto slab, serif !important;
+  }
+
+  .detail-content {
+    font-family: Open Sans, sans-serif !important;;
   }
 </style>`;
 
