@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+var request = require("request");
 var bodyParser = require("body-parser");
 const cors = require("cors");
 const port = process.env.PORT || 5000
@@ -79,8 +80,13 @@ app.post('/login', (req, res) => {
 
 app.get("/calendar", (req, res) => {
   const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
-  let htmlString = "<!DOCTYPE html><html><body><h1>test</h1></body></html>";
-  res.send(htmlString);
+  request(iframeUrl, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.send(body);
+    } else {
+      res.send({"Error": "Could not get calendar content"})
+    }
+  });
 });
 
 app.listen(port, () => {
