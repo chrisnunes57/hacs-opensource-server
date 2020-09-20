@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 var request = require("request");
 var bodyParser = require("body-parser");
+const cheerio = require("cheerio");
 const cors = require("cors");
 const port = process.env.PORT || 5000
 const firebase = require("firebase/app");
@@ -78,11 +79,19 @@ app.post('/login', (req, res) => {
   });
 })
 
+const styles = `<style type="text/css">
+  html, body {
+    background-color: red !important;
+  }
+</style>`;
+
 app.get("/calendar", (req, res) => {
-  const iframeUrl = "https://calendar.google.com/calendar/u/0/htmlembed?src=texashacs@gmail.com&ctz=America/Chicago";
+  const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      res.send(body);
+      const $ = cheerio.load(body);
+      $("head").append(styles);
+      res.send($.html());
     } else {
       res.send({"Error": "Could not get calendar content"})
     }
