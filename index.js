@@ -105,7 +105,7 @@ app.get("/calendar", (req, res) => {
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
-      $("head").prepend("<base href=\"https://calendar.google.com\" >")
+      $("head").prepend("<script>document.body.onload = () => {alert('hello')};</script>");
       $("head").append(styles);
 
       // we need to update relative urls to point to "https://calendar.google.com"
