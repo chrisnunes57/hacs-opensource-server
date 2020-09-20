@@ -86,7 +86,11 @@ const styles = `<style type="text/css">
     display: none !important;
   }
 
-  .te-s, te-t {
+  html, body {
+    background: none !important;
+  }
+
+  .te-s, .te-t {
     color: #27246A !important;
     font-family: Roboto slab, serif !important;
   }
