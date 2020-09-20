@@ -80,8 +80,15 @@ app.post('/login', (req, res) => {
 })
 
 const styles = `<style type="text/css">
-  html, body {
-    background-color: red !important;
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab:wght@100;400;700&display=swap');
+
+  #calendarTitle {
+    display: none !important;
+  }
+
+  .st-c {
+    color: #27246A !important;
+    font-family: Roboto slab, serif !important;
   }
 </style>`;
 
