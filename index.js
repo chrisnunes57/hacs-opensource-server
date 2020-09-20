@@ -77,6 +77,12 @@ app.post('/login', (req, res) => {
   });
 })
 
+app.get("/calendar", (req, res) => {
+  const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
+  let htmlString = "<!DOCTYPE html><html><body><h1>test</h1></body></html>";
+  res.send(htmlString);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 })
