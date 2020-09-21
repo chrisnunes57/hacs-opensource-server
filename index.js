@@ -82,7 +82,7 @@ app.post('/login', (req, res) => {
 const styles = `<style type="text/css">
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab:wght@100;400;700&display=swap');
 
-  #calendarTitle {
+  #calendarTitle, #td-print-image-id {
     display: none !important;
   }
 
