@@ -102,11 +102,9 @@ const styles = `<style type="text/css">
 
 const script = `<script type=\"text/javascript\">
   const setup = () => {
-    window.setTimeout(() => {
-      alert('hello');
-      console.log(document.getElementsByTagName("a"))
-      console.log(document.body);
-    }, 5000);
+    window.onbeforeunload = (e) => {
+      console.log(e);
+    }
   } 
 
 
