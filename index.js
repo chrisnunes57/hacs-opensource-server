@@ -86,15 +86,6 @@ const styles = `<style type="text/css">
     display: none !important;
   }
 
-  .view-container-border, .mv-daynames-table, .ui-rtsr-selected {
-    background-color: #27246A !important;
-    background: #27246A !important;
-  }
-
-  .mv-daynames-table {
-    color: #EDEDED !important;
-  }
-
   html, body {
     background: none !important;
   }
