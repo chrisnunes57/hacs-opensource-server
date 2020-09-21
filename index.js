@@ -101,13 +101,26 @@ const styles = `<style type="text/css">
 </style>`;
 
 const script = `<script type=\"text/javascript\">
-  window.onload = () => {
-    window.setTimeout(() => {
-      alert('hello');
-      console.log(document.getElementsByTagName("a"))
-      console.log(document.body);
-    }, 1000); 
+  const setup = () => {
+    alert('hello');
+    console.log(document.getElementsByTagName("a"))
+    console.log(document.body);
   } 
+
+
+function ready(fn) {
+  console.log("beginning ready function");
+  if (document.readyState != 'loading'){
+    console.log("calling setup");
+    setup();
+  } else {
+    console.log("adding event listener");
+    document.addEventListener('DOMContentLoaded', setup);
+  }
+}
+
+fn();
+
 </script>`;
 
 app.get("/calendar", (req, res) => {
