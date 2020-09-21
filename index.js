@@ -122,7 +122,7 @@ app.get("/calendar", (req, res) => {
 });
 
 // handle google calendar routing
-app.get("/calendar/render", (req, res) => {
+app.get("/calendar/*", (req, res) => {
   res.redirect(301, "https://calendar.google.com" + req.path);
 });
 
