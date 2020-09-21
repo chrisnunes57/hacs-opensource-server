@@ -90,9 +90,17 @@ const styles = `<style type="text/css">
     background: none !important;
   }
 
-  .te-s, .te-t, .title, event-summary, .day {
+  .te-s, .te-t, .title, event-summary, .day, .ui-rtsr {
     color: #27246A !important;
     font-family: Roboto slab, serif !important;
+  }
+
+  .date-top {
+    font-family: Roboto slab, serif !important;
+  }
+
+  .date-label, .event {
+    padding: .1em 1em !important;
   }
 
   .detail-content {
