@@ -90,7 +90,7 @@ const styles = `<style type="text/css">
     background: none !important;
   }
 
-  .te-s, .te-t, .title {
+  .te-s, .te-t, .title, event-summary, .day {
     color: #27246A !important;
     font-family: Roboto slab, serif !important;
   }
