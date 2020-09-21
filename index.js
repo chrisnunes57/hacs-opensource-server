@@ -103,6 +103,7 @@ const styles = `<style type="text/css">
 const script = `<script type=\"text/javascript\">
   const setup = () => {
     window.onbeforeunload = (e) => {
+      alert("stop!");
       console.log(e);
     }
   } 
