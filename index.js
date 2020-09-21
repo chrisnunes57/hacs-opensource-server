@@ -100,12 +100,19 @@ const styles = `<style type="text/css">
   }
 </style>`;
 
+const script = `<script type=\"text/javascript\">
+  window.onload = () => {
+    alert('hello');
+    console.log(document.getElementsByTagName("a"))
+  };
+  </script>`
+
 app.get("/calendar", (req, res) => {
   const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
-      $("head").prepend("<script>document.body.onload = () => {alert('hello')};</script>");
+      $("head").prepend();
       $("head").append(styles);
 
       // we need to update relative urls to point to "https://calendar.google.com"
