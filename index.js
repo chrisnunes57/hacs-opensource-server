@@ -101,10 +101,11 @@ const styles = `<style type="text/css">
 </style>`;
 
 const script = `<script type=\"text/javascript\">
-  body.onload = () => {
+  document.onload = () => {
     window.setTimeout(() => {
       alert('hello');
       console.log(document.getElementsByTagName("a"))
+      console.log(document.body);
     }, 1000); 
   } 
 </script>`;
