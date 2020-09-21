@@ -101,10 +101,12 @@ const styles = `<style type="text/css">
 </style>`;
 
 const script = `<script type=\"text/javascript\">
-  window.setTimeout(() => {
-    alert('hello');
-    console.log(document.getElementsByTagName("a"))
-  }, 500);  
+  body.onload = () => {
+    window.setTimeout(() => {
+      alert('hello');
+      console.log(document.getElementsByTagName("a"))
+    }, 1000); 
+  } 
 </script>`;
 
 app.get("/calendar", (req, res) => {
