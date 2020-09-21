@@ -101,8 +101,10 @@ const styles = `<style type="text/css">
 </style>`;
 
 app.get("/calendar", (req, res) => {
-  const iframeUrl = "https://calendar.google.com/calendar/embed?mode=AGENDA&src=texashacs%40gmail.com&ctz=America%2FChicago";
-  request(iframeUrl, function (error, response, body) {
+  const iframeUrl = "https://calendar.google.com/calendar/embed?&src=texashacs%40gmail.com&ctz=America%2FChicago";
+  const iframeMobileUrl = "https://calendar.google.com/calendar/embed?mode=AGENDA&src=texashacs%40gmail.com&ctz=America%2FChicago";
+  console.log(req.query.agenda ? iframeMobileUrl : iframeUrl);
+  request(req.query.agenda ? iframeMobileUrl : iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
       $("head").append(styles);
