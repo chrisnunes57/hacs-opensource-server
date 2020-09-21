@@ -108,7 +108,7 @@ const script = `<script type=\"text/javascript\">
   } 
 
 
-function ready(fn) {
+function ready() {
   console.log("beginning ready function");
   if (document.readyState != 'loading'){
     console.log("calling setup");
@@ -119,7 +119,7 @@ function ready(fn) {
   }
 }
 
-fn();
+ready();
 
 </script>`;
 
