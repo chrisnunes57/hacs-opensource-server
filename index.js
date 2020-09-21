@@ -101,7 +101,7 @@ const styles = `<style type="text/css">
 </style>`;
 
 const script = `<script type=\"text/javascript\">
-  document.onload = () => {
+  window.onload = () => {
     window.setTimeout(() => {
       alert('hello');
       console.log(document.getElementsByTagName("a"))
