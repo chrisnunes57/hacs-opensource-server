@@ -101,11 +101,11 @@ const styles = `<style type="text/css">
 </style>`;
 
 const script = `<script type=\"text/javascript\">
-  window.onload = () => {
+  window.setTimeout(() => {
     alert('hello');
     console.log(document.getElementsByTagName("a"))
-  };
-  </script>`
+  }, 500);  
+</script>`;
 
 app.get("/calendar", (req, res) => {
   const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
