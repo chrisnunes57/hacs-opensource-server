@@ -100,36 +100,11 @@ const styles = `<style type="text/css">
   }
 </style>`;
 
-const script = `<script type=\"text/javascript\">
-  const setup = () => {
-    window.onbeforeunload = (e) => {
-      alert("stop!");
-      console.log(e);
-    }
-  } 
-
-
-function ready() {
-  console.log("beginning ready function");
-  if (document.readyState != 'loading'){
-    console.log("calling setup");
-    setup();
-  } else {
-    console.log("adding event listener");
-    document.addEventListener('DOMContentLoaded', setup);
-  }
-}
-
-ready();
-
-</script>`;
-
 app.get("/calendar", (req, res) => {
   const iframeUrl = "https://calendar.google.com/calendar/embed?src=texashacs%40gmail.com&ctz=America%2FChicago";
   request(iframeUrl, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       const $ = cheerio.load(body);
-      $("head").prepend(script);
       $("head").append(styles);
 
       // we need to update relative urls to point to "https://calendar.google.com"
@@ -144,6 +119,11 @@ app.get("/calendar", (req, res) => {
       res.send({"Error": "Could not get calendar content"})
     }
   });
+});
+
+// handle google calendar routing
+app.get("/calendar/render", (req, res) => {
+  res.redirect(301, "https://calendar.google.com" + req.path);
 });
 
 app.listen(port, () => {
