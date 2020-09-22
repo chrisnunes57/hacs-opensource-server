@@ -17,6 +17,11 @@ const jsonParser = bodyParser.json();
 
 app.use(cors({ credentials: true, origin: true }));
 
+// we make a request to our own server every 5 minutes to prevent heroku from putting the app to sleep
+window.setInterval(() => {
+  request("https://enigmatic-shore-29691.herokuapp.com/");
+}, 600000);
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
