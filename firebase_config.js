@@ -6,7 +6,7 @@ const firebaseConfig = {
   storageBucket: "hacs-opensource.appspot.com",
   messagingSenderId: "213041163103",
   appId: "1:213041163103:web:abee18085d83297ba0e4ea",
-  measurementId: "G-F1WKE4VRDS"
+  measurementId: "G-F1WKE4VRDS",
 };
 
 exports.config = firebaseConfig;
