@@ -1,7 +1,7 @@
 // index.js - Central logic for the HACS Node app
 
 const express = require("express");
-const routes = require("./api-routes/routes.js");
+const routes = require("./routes/index.js");
 const app = express();
 var request = require("request");
 const cors = require("cors");
