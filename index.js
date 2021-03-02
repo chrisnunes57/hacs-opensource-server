@@ -23,7 +23,7 @@ setInterval(() => {
 }, 600000);
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Welcome to the HACS backend!');
 });
 
 app.get("/siteContent", (req, res) => {
@@ -127,6 +127,11 @@ app.get("/calendar", (req, res) => {
       res.send({"Error": "Could not get calendar content"})
     }
   });
+});
+
+// handle google calendar routing
+app.get("/calendar/*", (req, res) => {
+  res.redirect(301, "https://calendar.google.com" + req.path);
 });
 
 // handle google calendar routing
