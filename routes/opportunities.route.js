@@ -1,44 +1,37 @@
-const express = require("express");
-const router = express.Router();
+// opportunities.route.js - Opportunities route module
 
-const firebase = require("firebase/app");
-const db = firebase.firestore();
+const express = require("express");
+const asyncHandler = require("express-async-handler");
+const opportunitiesCtrl = require("../controllers/opportunities.controller");
+// const config = require("../config/config");
+
+const router = express.Router();
+module.exports = router;
 
 var bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
-router.get("/", (req, res) => {
-  db.collection("opportunities")
-    .get()
-    .catch((error) => {
-      res.send({
-        error: "Error reading opportunities from database. Please try again.",
-      });
-    })
-    .then((snapshot) => {
-      if (snapshot) {
-        let data = {};
-        snapshot.forEach((doc) => {
-          data[doc.id] = doc.data();
-        });
-        res.send(data);
-      }
+router.get("/", asyncHandler(getOpportunitiesData));
+router.post("/", jsonParser, asyncHandler(insertOpportunitiesData));
+
+async function getOpportunitiesData(req, res) {
+  try {
+    let opportunitiesData = await opportunitiesCtrl.read();
+    console.log(opportunitiesData)
+    res.json(opportunitiesData);
+  } catch (e) {
+    res.send({
+      error: "Error reading opportunities from database. Please try again.",
     });
-});
+  }
+}
 
-router.post("/", jsonParser, (req, res) => {
-  console.log(req.body);
-  let props = Object.getOwnPropertyNames(req.body);
-  props.forEach((docName) => {
-    console.log(docName);
-    db.collection("opportunities")
-      .doc(docName)
-      .set(req.body[docName], { merge: true })
-      .catch((error) => {
-        res.send({ error: "Error writing opportunities to database, please try again" });
-      });
-  });
-  res.sendStatus(200);
-});
-
-module.exports = router;
+async function insertOpportunitiesData(req, res) {
+  try {
+    console.log(req.body);
+    let opportunitiesData = await opportunitiesCtrl.insert(req.body);
+    res.json(opportunitiesData);
+  } catch (e) {
+    res.sendStatus(200);
+  }
+}

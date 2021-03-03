@@ -12,6 +12,7 @@ const config = require("./firebase_config.js").config;
 
 firebase.initializeApp(config);
 const db = firebase.firestore();
+module.exports = db;
 
 const jsonParser = bodyParser.json();
 
