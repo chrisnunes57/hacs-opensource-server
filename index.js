@@ -1,5 +1,19 @@
 // index.js - Central logic for the HACS Node app
 
+// Import config before any other module
+const config = require("./config/config");
+
+const app = require("./config/express");
+// require("./config/firebase");
+
+app.listen(config.port, () => {
+  console.info(
+    `Starting our virtual familia home on port ${config.port} (${config.env})`
+  );
+});
+
+module.exports = app;
+
 const express = require("express");
 const routes = require("./routes/index.js");
 const app = express();
