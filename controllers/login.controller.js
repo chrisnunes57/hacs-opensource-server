@@ -6,11 +6,10 @@ module.exports = {
   login,
 };
 
-async function login(auth) {
-  let loginData = Buffer.from(
-    req.headers.authorization.split(" ")[1],
-    "base64"
-  ).toString();
+async function login(authorization) {
+  console.log(authorization)
+  let loginData = Buffer.from(authorization.split(" ")[1], "base64").toString();
+  console.log(loginData);
   loginData = loginData.split(":");
 
   let email = loginData[0];

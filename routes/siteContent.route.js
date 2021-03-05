@@ -17,7 +17,7 @@ router.post("/", /*jsonParser,*/ asyncHandler(insertSiteContentData));
 async function getSiteContentData(req, res) {
   try {
     let siteContentData = await siteContentCtrl.read();
-    console.log(siteContentData);
+    console.log("Retrieved site content data...\n");
     res.json(siteContentData);
   } catch (e) {
     res.send({

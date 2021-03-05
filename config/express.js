@@ -1,9 +1,8 @@
 // express.js - Express config module
 
-
 // const path = require("path");
 const express = require("express");
-// const httpError = require("http-errors");
+const { makeError, error404, handleRouteErrors } = require("./errors.js");
 // const logger = require("morgan");
 const bodyParser = require("body-parser");
 // const cookieParser = require("cookie-parser");
@@ -31,37 +30,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(compress());
 // app.use(methodOverride());
 
-// secure apps by setting various HTTP headers
+// Secure apps by setting various HTTP headers
 // app.use(helmet());
 
-// enable CORS - Cross Origin Resource Sharing
+// Enable CORS - Cross Origin Resource Sharing
 app.use(cors());
 
 // app.use(passport.initialize());
 
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// API router
-app.use("/", routes);
+// API router (routes beginning with "/api")
+app.use("/api", routes);
 
-// Catch 404 and forward to error handler
-app.use((req, res, next) => {
-  const err = new httpError(404);
-  return next(err);
+// Base backend route response
+app.get("/", (req, res) => {
+  res.send("Welcome to the HACS backend!");
 });
+
+// Catch 404 and create error
+app.use(error404);
 
 // Error handler, send stacktrace only during development
-app.use((err, req, res, next) => {
-  // Customize Joi validation errors
-  if (err.isJoi) {
-    err.message = err.details.map((e) => e.message).join("; ");
-    err.status = 400;
-  }
-
-  res.status(err.status || 500).json({
-    message: err.message,
-  });
-  next(err);
-});
+app.use(handleRouteErrors);
 
 module.exports = app;

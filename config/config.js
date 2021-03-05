@@ -9,7 +9,7 @@ require("dotenv").config();
 const envVarsSchema = Joi.object({
   // NODE
   NODE_ENV: Joi.string()
-    .allow(["development", "production", "test", "provision"])
+    .allow("development", "production", "test", "provision")
     .default("development")
     .description("Current environment for API"),
   SERVER_PORT: Joi.number().default(5000).description("API Server Port"),
@@ -39,7 +39,7 @@ const envVarsSchema = Joi.object({
   .required();
 
 // Validate env vars against schema
-const { error, value: envVars } = Joi.validate(process.env, envVarsSchema);
+const { error, value: envVars } = envVarsSchema.validate(process.env);
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
