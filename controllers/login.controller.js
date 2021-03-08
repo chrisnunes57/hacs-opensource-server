@@ -20,7 +20,7 @@ async function login(authorization) {
     .signInWithEmailAndPassword(email, password)
     .then((data) => {
       if (data) {
-        console.log("Successfully logged into firebase!");
+        console.info("Successfully logged into firebase!");
         return {
           email: data.user.email,
           uid: data.user.uid,

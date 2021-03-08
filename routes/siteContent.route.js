@@ -4,36 +4,37 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const siteContentCtrl = require("../controllers/siteContent.controller");
 const config = require("../config/config");
-
-// var bodyParser = require("body-parser");
-// const jsonParser = bodyParser.json();
+const RES = require("../util/const");
 
 const router = express.Router();
 module.exports = router;
 
 router.get("/", asyncHandler(getSiteContentData));
-router.post("/", /*jsonParser,*/ asyncHandler(insertSiteContentData));
+router.post("/", asyncHandler(insertSiteContentData));
 
-async function getSiteContentData(req, res) {
+async function getSiteContentData(req, res, next) {
   try {
     let siteContentData = await siteContentCtrl.read();
-    console.log("Retrieved site content data...\n");
+    console.info("Retrieved site content data...\n");
     res.json(siteContentData);
   } catch (e) {
-    res.send({
-      error: "Error reading site content from database. Please try again.",
-    });
+    if (config.env !== "dev") {
+      e.message =
+        "Error retrieving site content from database. Please try again.";
+    }
+    next(e);
   }
 }
 
-async function insertSiteContentData(req, res) {
+async function insertSiteContentData(req, res, next) {
   try {
-    console.log(req.body);
     await siteContentCtrl.insert(req.body);
-    res.sendStatus(200);
+    res.sendStatus(RES.SUCESS.OK);
   } catch (e) {
-    res.send({
-      error: "Error inserting site content into database. Please try again.",
-    });
+    if (config.env === "dev") {
+      e.message =
+        "Error inserting site content into database. Please try again.";
+    }
+    next(e);
   }
 }

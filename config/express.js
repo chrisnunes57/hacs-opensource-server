@@ -2,9 +2,8 @@
 
 // const path = require("path");
 const express = require("express");
-const { makeError, error404, handleRouteErrors } = require("./errors.js");
-// const logger = require("morgan");
-const bodyParser = require("body-parser");
+const { makeError, error404, handleRouteErrors } = require("./errors");
+const { logger } = require("./logging");
 // const cookieParser = require("cookie-parser");
 // const compress = require("compression");
 // const methodOverride = require("method-override");
@@ -14,17 +13,13 @@ const cors = require("cors");
 // const swaggerDocument = require("./swagger.json");
 const routes = require("../routes/index.route");
 const config = require("./config");
+const { RES } = require("../util/const");
 // const passport = require("./passport");
 
 const app = express();
 
 // Set logger to dev mode
-if (config.env === "dev") {
-  app.use(logger("dev"));
-}
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(logger);
 
 // app.use(cookieParser());
 // app.use(compress());

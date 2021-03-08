@@ -9,7 +9,7 @@ require("firebase/firestore");
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-console.log("Firebase app initialized...\n");
+console.info("Firebase app initialized...\n");
 
 module.exports = {
   db,

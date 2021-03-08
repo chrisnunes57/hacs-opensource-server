@@ -13,6 +13,7 @@ module.exports = {
 async function read() {
   const snapshot = await db.collection("contentData").get();
   let data = {};
+  throw makeError("This is some bullshit");
 
   // const snapshot = await siteContentRef.get();
   snapshot.forEach((doc) => {
@@ -26,6 +27,7 @@ async function read() {
   return data;
 }
 
+// Set new data for db collection "siteContent"
 async function insert(body) {
   let props = Object.getOwnPropertyNames(body);
   props.forEach((docName) => {

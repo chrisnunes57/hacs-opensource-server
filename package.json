@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
+  "name": "hacs-server",
   "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "A Node.js backend for the website of the Hispanic Association of Computer Scientists (HACS)",
   "engines": {
     "node": "12.x"
   },
@@ -12,17 +12,16 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
+    "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "ejs": "^2.5.6",
     "express": "^4.15.2",
     "express-async-handler": "^1.1.4",
     "firebase": "^7.20.0",
-    "http-errors": "^1.8.0",
     "joi": "^17.4.0",
-    "request": "^2.88.2"
+    "morgan": "^1.10.0",
+    "set-interval-async": "1.0.34"
   },
   "devDependencies": {
     "got": "^11.3.0",

@@ -9,8 +9,8 @@ require("dotenv").config();
 const envVarsSchema = Joi.object({
   // NODE
   NODE_ENV: Joi.string()
-    .allow("development", "production", "test", "provision")
-    .default("development")
+    .allow("dev", "prod", "test", "provision")
+    .default("prod")
     .description("Current environment for API"),
   SERVER_PORT: Joi.number().default(5000).description("API Server Port"),
   // FIREBASE

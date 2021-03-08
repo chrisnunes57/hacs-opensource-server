@@ -13,13 +13,13 @@ router.post("/", asyncHandler(performLogin));
 async function performLogin(req, res) {
   try {
     const loginData = await loginCtrl.login(req.headers.authorization);
-    console.log("Successfully logged in, welcome!");
+    console.info("Successfully logged in, welcome!");
     res.send({
       email: loginData.user.email,
       uid: loginData.user.uid,
     });
   } catch (e) {
-    console.log(e.code, e.message);
+    console.error(e.code, e.message);
     res.send({
       error: "Unable to sign in with these credentials, please try again.",
     });

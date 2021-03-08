@@ -1,3 +1,5 @@
+const config = require("./config");
+
 // Make error from message or throw passed-in err
 function makeError(message, status) {
   let err = message instanceof Error ? message : new Error(message);
@@ -24,7 +26,9 @@ function handleRouteErrors(error, req, res, next) {
     .status(error.status || 500)
     .json({ error: { message: error.message, status: error.status } });
 
-  next(error);
+  if (config.env == "dev") {
+    next(error);
+  }
 }
 
 module.exports = {
