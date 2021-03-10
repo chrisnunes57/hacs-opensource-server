@@ -15,16 +15,22 @@ async function login(authorization) {
   let email = loginData[0];
   let password = loginData[1];
 
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((data) => {
-      if (data) {
-        console.info("Successfully logged into firebase!");
-        return {
-          email: data.user.email,
-          uid: data.user.uid,
-        };
-      }
-    });
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((data) => {
+        if (data) {
+          console.info("Successfully logged into firebase!");
+          resolve({
+            user: {
+              email: data.user.email,
+              uid: data.user.uid
+            }
+          })
+        }
+      }).catch((error) => {
+        reject(error)
+      });
+  });
 }

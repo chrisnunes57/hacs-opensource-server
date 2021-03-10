@@ -13,7 +13,6 @@ module.exports = {
 async function read() {
   const snapshot = await db.collection("contentData").get();
   let data = {};
-  throw makeError("This is some bullshit");
 
   // const snapshot = await siteContentRef.get();
   snapshot.forEach((doc) => {

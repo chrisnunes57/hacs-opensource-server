@@ -16,12 +16,12 @@ async function performLogin(req, res) {
     console.info("Successfully logged in, welcome!");
     res.send({
       email: loginData.user.email,
-      uid: loginData.user.uid,
+      uid: loginData.user.uid
     });
   } catch (e) {
     console.error(e.code, e.message);
     res.send({
-      error: "Unable to sign in with these credentials, please try again.",
+      error: "Unable to sign in with these credentials, please try again."
     });
   }
 }
