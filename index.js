@@ -16,7 +16,7 @@ setIntervalAsync(() => {
     });
 }, 600000);
 
-app.listen(config.port, () => {
+app.listen(process.env.PORT || config.port, () => {
   console.info(
     `Starting our virtual familia home at http://localhost:${config.port} (${config.env})\n\n-----\n`
   );
