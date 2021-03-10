@@ -36,7 +36,7 @@ app.use(cors());
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // API router (routes beginning with "/api")
-app.use("/api", routes);
+app.use("/", routes);
 
 // Base backend route response
 app.get("/", (req, res) => {
