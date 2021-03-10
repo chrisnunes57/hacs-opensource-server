@@ -34,5 +34,7 @@ async function insert(body) {
     db.collection("contentData")
       .doc(docName)
       .set(body[docName], { merge: true });
+  }).catch((err) => {
+    console.info(err)
   });
 }

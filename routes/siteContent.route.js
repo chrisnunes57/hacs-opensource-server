@@ -5,12 +5,15 @@ const asyncHandler = require("express-async-handler");
 const siteContentCtrl = require("../controllers/siteContent.controller");
 const config = require("../config/config");
 const RES = require("../util/const");
+const bodyParser = require('body-parser')
+
+const jsonParser = bodyParser.json()
 
 const router = express.Router();
 module.exports = router;
 
 router.get("/", asyncHandler(getSiteContentData));
-router.post("/", asyncHandler(insertSiteContentData));
+router.post("/", jsonParser, asyncHandler(insertSiteContentData));
 
 async function getSiteContentData(req, res, next) {
   try {
