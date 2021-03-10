@@ -16,7 +16,7 @@ async function getCalendarData(req, res, next) {
   try {
     let calendarData = await calendarCtrl.read(req.query.agenda);
     console.log("Retrieved calendar content...\n");
-    res.send({ calendarData });
+    res.send(calendarData);
   } catch (e) {
     if (config.env !== "dev") {
       e.message = "Error retrieving calendar content. Please try again.";
