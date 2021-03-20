@@ -4,7 +4,7 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const calendarCtrl = require("../controllers/calendar.controller");
 const config = require("../config/config");
-const { RES } = require("../util/const");
+const { CODES, RES } = require("../util/const");
 
 const router = express.Router();
 module.exports = router;
@@ -30,7 +30,7 @@ async function redirect(req, res, next) {
   try {
     console.log(`Redirecting to https://calendar.google.com${req.path}`);
     res.redirect(
-      RES.REDIRECT.MOVED_PERMANENTLY,
+      CODES.REDIRECT.MOVED_PERMANENTLY,
       "https://calendar.google.com" + req.path
     );
   } catch (e) {

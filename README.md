@@ -7,3 +7,4 @@ Our current API Routes:
 - /calendar
 - /siteContent
 - /login
+- /opportunities

@@ -3,35 +3,41 @@
 const express = require("express");
 const asyncHandler = require("express-async-handler");
 const opportunitiesCtrl = require("../controllers/opportunities.controller");
-// const config = require("../config/config");
+const config = require("../config/config");
+const { CODES, RES } = require("../util/const");
 
 const router = express.Router();
 module.exports = router;
 
-var bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-
 router.get("/", asyncHandler(getOpportunitiesData));
-router.post("/", jsonParser, asyncHandler(insertOpportunitiesData));
+router.post("/", asyncHandler(insertOpportunitiesData));
 
-async function getOpportunitiesData(req, res) {
+async function getOpportunitiesData(req, res, next) {
   try {
     let opportunitiesData = await opportunitiesCtrl.read();
-    console.log(opportunitiesData)
+    console.info("Retrieved opportunities data...\n");
     res.json(opportunitiesData);
   } catch (e) {
-    res.send({
-      error: "Error reading opportunities from database. Please try again.",
-    });
+    if (config.env !== "dev") {
+      e.message =
+        "Error retrieving opportunities from database. Please try again.";
+    }
+    next(e);
   }
 }
 
 async function insertOpportunitiesData(req, res) {
   try {
-    console.log(req.body);
-    let opportunitiesData = await opportunitiesCtrl.insert(req.body);
-    res.json(opportunitiesData);
+    await opportunitiesCtrl.insert(req.body);
+    res.json({
+      status: CODES.SUCESS.OK,
+      data: req.body,
+    });
   } catch (e) {
-    res.sendStatus(200);
+    if (config.env === "dev") {
+      e.message =
+        "Error inserting opportunities into database. Please try again.";
+    }
+    next(e);
   }
 }

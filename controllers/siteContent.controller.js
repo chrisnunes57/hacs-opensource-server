@@ -1,6 +1,6 @@
 // siteContent.controller.js - Site content logic module
 
-// const model = require("../models/opportunities.model");
+// const model = require("../models/siteContent.model");
 const { makeError } = require("../config/errors");
 const { db } = require("../config/firebase");
 const { isEmpty } = require("../util/util");

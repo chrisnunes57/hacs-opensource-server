@@ -1,9 +1,13 @@
-// const model = require("../models/opportunities.model");
+// opportunities.controller.js - Opportunities logic module
 
-const firebase = require("firebase/app");
-require("firebase/auth");
-require("firebase/firestore");
-const db = require("../index.js");
+// const model = require("../models/opportunities.model");
+const { makeError } = require("../config/errors");
+const { db } = require("../config/firebase");
+const { isEmpty } = require("../util/util");
+
+const oppSchema = Joi.object({
+
+})
 
 module.exports = {
   read,
@@ -11,23 +15,31 @@ module.exports = {
 };
 
 async function read() {
-  const oppRef = db.collection("opportunities");
+  const snapshot = await db.collection("opportunities").get();
   let data = {};
 
-  const snapshot = await oppRef.get();
   snapshot.forEach((doc) => {
     data[doc.id] = doc.data();
   });
 
+  if (isEmpty(data)) {
+    throw makeError("Bad Request: The server returned no data.", 400);
+  }
+
   return data;
 }
 
+// Set new data for db collection "opportunities"
 async function insert(body) {
   let props = Object.getOwnPropertyNames(body);
-  props.forEach((docName) => {
-    console.log(docName);
-    db.collection("opportunities")
-      .doc(docName)
-      .set(body[docName], { merge: true });
-  });
+  props
+    .forEach((docName) => {
+      console.log(docName);
+      db.collection("opportunities")
+        .doc(docName)
+        .set(body[docName], { merge: true });
+    })
+    .catch((err) => {
+      console.info(err);
+    });
 }

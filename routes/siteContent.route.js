@@ -4,10 +4,10 @@ const express = require("express");
 const asyncHandler = require("express-async-handler");
 const siteContentCtrl = require("../controllers/siteContent.controller");
 const config = require("../config/config");
-const RES = require("../util/const");
-const bodyParser = require('body-parser')
+const { CODES, RES } = require("../util/const");
+const bodyParser = require("body-parser");
 
-const jsonParser = bodyParser.json()
+const jsonParser = bodyParser.json();
 
 const router = express.Router();
 module.exports = router;
@@ -32,7 +32,7 @@ async function getSiteContentData(req, res, next) {
 async function insertSiteContentData(req, res, next) {
   try {
     await siteContentCtrl.insert(req.body);
-    res.sendStatus(RES.SUCESS.OK);
+    res.sendStatus(CODES.SUCESS.OK);
   } catch (e) {
     if (config.env === "dev") {
       e.message =

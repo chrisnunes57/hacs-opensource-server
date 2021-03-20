@@ -1,7 +1,7 @@
 const config = require("./config");
 const morgan = require("morgan");
 const chalk = require("chalk");
-const { RES } = require("../util/const");
+const { CODES, RES } = require("../util/const");
 const { objContainsVal } = require("../util/util");
 
 // Simple logging structure for production:
@@ -36,11 +36,11 @@ module.exports = { logger };
 // Return colored status code
 function colorResponse(status) {
   status = Number(status);
-  if (objContainsVal(RES.SUCCESS, status)) {
+  if (objContainsVal(CODES.SUCCESS, status)) {
     return chalk.green(status);
-  } else if (objContainsVal(RES.CLIENT_ERROR, status)) {
+  } else if (objContainsVal(CODES.CLIENT_ERROR, status)) {
     return chalk.yellow(status);
-  } else if (objContainsVal(RES.SERVER_ERROR, status)) {
+  } else if (objContainsVal(CODES.SERVER_ERROR, status)) {
     return chalk.red(status);
   }
   return status;

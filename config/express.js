@@ -13,13 +13,16 @@ const cors = require("cors");
 // const swaggerDocument = require("./swagger.json");
 const routes = require("../routes/index.route");
 const config = require("./config");
-const { RES } = require("../util/const");
+const { CODES, RES } = require("../util/const");
 // const passport = require("./passport");
 
 const app = express();
 
 // Set logger to dev mode
 app.use(logger);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // app.use(cookieParser());
 // app.use(compress());
