@@ -2,12 +2,8 @@
 
 // const model = require("../models/opportunities.model");
 const { makeError } = require("../config/errors");
-const { db } = require("../config/firebase");
+const { adminDB, firebase, firebaseAdmin } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
-
-const oppSchema = Joi.object({
-
-})
 
 module.exports = {
   read,
@@ -15,7 +11,7 @@ module.exports = {
 };
 
 async function read() {
-  const snapshot = await db.collection("opportunities").get();
+  const snapshot = await adminDB.collection("opportunities").get();
   let data = {};
 
   snapshot.forEach((doc) => {
@@ -30,16 +26,11 @@ async function read() {
 }
 
 // Set new data for db collection "opportunities"
-async function insert(body) {
-  let props = Object.getOwnPropertyNames(body);
-  props
-    .forEach((docName) => {
-      console.log(docName);
-      db.collection("opportunities")
-        .doc(docName)
-        .set(body[docName], { merge: true });
-    })
-    .catch((err) => {
-      console.info(err);
+async function insert(docName, data) {
+  await adminDB
+    .collection("opportunities")
+    .doc(docName)
+    .update({
+      sponsors: firebaseAdmin.firestore.FieldValue.arrayUnion(data),
     });
 }

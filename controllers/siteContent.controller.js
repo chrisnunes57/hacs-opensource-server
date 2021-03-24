@@ -30,7 +30,6 @@ async function read() {
 async function insert(body) {
   let props = Object.getOwnPropertyNames(body);
   props.forEach((docName) => {
-    console.log(docName);
     db.collection("contentData")
       .doc(docName)
       .set(body[docName], { merge: true });

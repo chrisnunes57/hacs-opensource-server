@@ -1,9 +1,11 @@
+// opportunities.schema.js - Opportunities data schemas module
+
 const Joi = require("joi");
 
 const eventDataSchema = Joi.object({
   title: Joi.string().required(),
-  startTime: Joi.date().timestamp().required(),
-  endTime: Joi.date().timestamp().allow(null),
+  startTime: Joi.string().isoDate().allow(null),
+  endTime: Joi.string().isoDate().allow(null),
   img: Joi.string().allow(null),
   meetingLink: Joi.string().allow(null),
   rsvpLink: Joi.string().allow(null),

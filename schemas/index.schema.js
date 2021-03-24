@@ -1,12 +1,7 @@
-const Joi = require("joi");
+// index.schema.js - Central module for all data schemas
 
-const opportunitiesDataSchema = Joi.object({
-  studentId: personID.required(),
-  amount: Joi.number().positive().greater(1).precision(2).required(),
-  cardNumber: Joi.string().creditCard().required(),
-  completedAt: Joi.date().timestamp().required(),
-});
+const opportunitiesDataSchemas = require("./opportunities.schema");
 
 module.exports = {
-  "/opportunities": opportunitiesDataSchema,
+  ...opportunitiesDataSchemas,
 };
