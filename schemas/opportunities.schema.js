@@ -20,13 +20,12 @@ const eventDataSchema = Joi.object({
 const jobListingDataSchema = Joi.object({
   title: Joi.string().required(),
   timeline: Joi.object({
-    openDate: Joi.date().timestamp().allow(null),
-    closeDate: Joi.date().timestamp().allow(null),
+    openDate: Joi.string().isoDate().allow(null),
+    closeDate: Joi.string().isoDate().allow(null),
   }),
   img: Joi.string().allow(null),
   link: Joi.string().allow(null),
   description: Joi.string().allow(null),
-  location: Joi.string().allow(null),
   otherLinks: Joi.object({
     flyerLink: Joi.string().allow(null),
   }).unknown(),
@@ -35,8 +34,8 @@ const jobListingDataSchema = Joi.object({
 const scholarshipDataSchema = Joi.object({
   title: Joi.string().required(),
   timeline: Joi.object({
-    openDate: Joi.date().timestamp().allow(null),
-    closeDate: Joi.date().timestamp().allow(null),
+    openDate: Joi.string().isoDate().allow(null),
+    closeDate: Joi.string().isoDate().allow(null),
   }),
   img: Joi.string().allow(null),
   link: Joi.string().allow(null),
