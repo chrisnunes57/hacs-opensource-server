@@ -2,7 +2,7 @@
 
 const Joi = require("joi");
 
-const eventDataSchema = Joi.object({
+const eventDataSchema = Joi.array().items(Joi.object({
   title: Joi.string().required(),
   startTime: Joi.string().isoDate().allow(null),
   endTime: Joi.string().isoDate().allow(null),
@@ -15,9 +15,9 @@ const eventDataSchema = Joi.object({
     flyerLink: Joi.string().allow(null),
     jobListing: Joi.string().allow(null),
   }).unknown(),
-});
+}));
 
-const jobListingDataSchema = Joi.object({
+const jobListingDataSchema = Joi.array().items(Joi.object({
   title: Joi.string().required(),
   timeline: Joi.object({
     openDate: Joi.string().isoDate().allow(null),
@@ -29,9 +29,9 @@ const jobListingDataSchema = Joi.object({
   otherLinks: Joi.object({
     flyerLink: Joi.string().allow(null),
   }).unknown(),
-});
+}));
 
-const scholarshipDataSchema = Joi.object({
+const scholarshipDataSchema = Joi.array().items(Joi.object({
   title: Joi.string().required(),
   timeline: Joi.object({
     openDate: Joi.string().isoDate().allow(null),
@@ -41,7 +41,7 @@ const scholarshipDataSchema = Joi.object({
   link: Joi.string().allow(null),
   description: Joi.string().allow(null),
   otherLinks: Joi.object().unknown(),
-});
+}));
 
 module.exports = {
   "/opportunities/events": eventDataSchema,

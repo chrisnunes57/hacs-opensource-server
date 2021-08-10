@@ -6,6 +6,7 @@ const opportunitiesCtrl = require("../controllers/opportunities.controller");
 const config = require("../config/config");
 const { CODES, RES } = require("../util/const");
 const SchemaValidator = require("../schemas/schemaValidator");
+const { checkAuth } = require("../auth/auth");
 
 const router = express.Router();
 module.exports = router;
@@ -13,8 +14,17 @@ module.exports = router;
 const validateRequest = SchemaValidator(config.env === "dev");
 
 router.get("/", asyncHandler(getOpportunitiesData));
-router.post("/events", validateRequest, asyncHandler(insertOpportunitiesData));
-router.post("/jobs", validateRequest, asyncHandler(insertOpportunitiesData));
+
+router.post(
+  "/events",
+  validateRequest,
+  asyncHandler(insertOpportunitiesData)
+);
+router.post(
+  "/jobs",
+  validateRequest,
+  asyncHandler(insertOpportunitiesData)
+);
 router.post(
   "/scholarships",
   validateRequest,
@@ -23,7 +33,7 @@ router.post(
 
 async function getOpportunitiesData(req, res, next) {
   try {
-    let opportunitiesData = await opportunitiesCtrl.read();
+    let opportunitiesData = await opportunitiesCtrl.read(req.route.path);
     console.info("Retrieved opportunities data...\n");
     res.json(opportunitiesData);
   } catch (e) {

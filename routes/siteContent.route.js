@@ -5,15 +5,13 @@ const asyncHandler = require("express-async-handler");
 const siteContentCtrl = require("../controllers/siteContent.controller");
 const config = require("../config/config");
 const { CODES, RES } = require("../util/const");
-const bodyParser = require("body-parser");
-
-const jsonParser = bodyParser.json();
+const { checkAuth } = require("../auth/auth");
 
 const router = express.Router();
 module.exports = router;
 
 router.get("/", asyncHandler(getSiteContentData));
-router.post("/", jsonParser, asyncHandler(insertSiteContentData));
+router.post("/", checkAuth, asyncHandler(insertSiteContentData));
 
 async function getSiteContentData(req, res, next) {
   try {
@@ -32,9 +30,9 @@ async function getSiteContentData(req, res, next) {
 async function insertSiteContentData(req, res, next) {
   try {
     await siteContentCtrl.insert(req.body);
-    res.sendStatus(CODES.SUCESS.OK);
+    res.sendStatus(CODES.SUCCESS.OK);
   } catch (e) {
-    if (config.env === "dev") {
+    if (config.env !== "dev") {
       e.message =
         "Error inserting site content into database. Please try again.";
     }

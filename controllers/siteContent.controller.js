@@ -2,7 +2,7 @@
 
 // const model = require("../models/siteContent.model");
 const { makeError } = require("../config/errors");
-const { db } = require("../config/firebase");
+const { adminDB } = require("../config/firebase");
 const { isEmpty } = require("../util/util");
 
 module.exports = {
@@ -11,13 +11,14 @@ module.exports = {
 };
 
 async function read() {
-  const snapshot = await db.collection("contentData").get();
-  let data = {};
-
-  // const snapshot = await siteContentRef.get();
-  snapshot.forEach((doc) => {
-    data[doc.id] = doc.data();
-  });
+  let data = adminDB
+    .ref("siteContent")
+    .once("value", (snapshot) => {
+      return snapshot.val();
+    })
+    .catch((err) => {
+      console.info(err);
+    });
 
   if (isEmpty(data)) {
     throw makeError("Bad Request: The server returned no data.", 400);
@@ -28,12 +29,11 @@ async function read() {
 
 // Set new data for db collection "siteContent"
 async function insert(body) {
-  let props = Object.getOwnPropertyNames(body);
-  props.forEach((docName) => {
-    db.collection("contentData")
-      .doc(docName)
-      .set(body[docName], { merge: true });
-  }).catch((err) => {
-    console.info(err)
-  });
+  adminDB
+    .ref("siteContent")
+    .set(body, (error) => {
+      if (error) {
+        console.info(error);
+      }
+    })
 }
