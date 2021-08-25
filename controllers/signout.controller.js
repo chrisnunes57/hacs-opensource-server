@@ -7,14 +7,9 @@ module.exports = {
 };
 
 async function signout(authorization) {
-  await firebaseAuthWrap(
-    firebase.auth.signout
-  );
+  await firebaseAuthWrap(firebase.auth.signout);
 
-  let loginData = Buffer.from(
-    authorization.split(" ")[1],
-    "base64"
-  ).toString();
+  let loginData = Buffer.from(authorization.split(" ")[1], "base64").toString();
   loginData = loginData.split(":");
 
   let email = loginData[0];
